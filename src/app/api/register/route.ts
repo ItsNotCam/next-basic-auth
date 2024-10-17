@@ -9,12 +9,12 @@ export async function POST(req: Request) {
 	} catch { }
 	
   try {
-    const { email, password } = await req.json();
+    const { email, password, authToken } = await req.json();
 		if(email === undefined || password === undefined || email === "" || password === "") {
 			throw "Email and password are required";
 		}
 
-    await registerUser(email, password);
+    await registerUser(email, password, authToken);
     return NextResponse.json({ message: 'User registered successfully' }, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });

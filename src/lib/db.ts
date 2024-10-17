@@ -13,6 +13,10 @@ export interface DBToken {
 	expires: number;
 }
 
+export const validAuthToken = (token: string): boolean => {
+	return db.get("authToken") === token;
+}
+
 export const deleteTokenFromDB = async (token: string) => {
 	const dbToken = await db.get(`tokens.${token}`);
 	if(dbToken) {

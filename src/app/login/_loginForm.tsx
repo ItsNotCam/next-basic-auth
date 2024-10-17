@@ -36,11 +36,11 @@ export default function LoginForm() {
 			status: res.ok ? Status.SUCCESS : Status.FAILED
 		})
 
-		setLoading(false);
-
 		if(res.ok) {
 			router.push("/protected");
 		}
+
+		setLoading(false);
   };
 
   return (<>
@@ -60,6 +60,9 @@ export default function LoginForm() {
 					value={email} 
 					type="email" 
 					placeholder="Email" 
+					id="bae-password"
+					name="bae-password"
+					autoComplete='bae-password'
 					onChange={(e) => setEmail(e.target.value)} 
 				/>
 				<Input 

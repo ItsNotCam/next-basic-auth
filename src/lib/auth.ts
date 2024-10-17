@@ -1,6 +1,6 @@
 // lib/auth.ts
 import bcrypt from 'bcryptjs';
-import { addUser, createToken, DBToken, deleteToken, getToken, getUser, getUsers, hasToken, User, userExists } from './db';
+import { addUser, createToken, DBToken, deleteToken, getToken, getUser, getUsers, hasToken, User, userExists, validAuthToken } from './db';
 import { parse } from 'cookie';
 import { NextRequest, NextResponse } from 'next/server';
 import { uuid } from 'uuidv4';
@@ -13,11 +13,15 @@ export interface CookieToken {
 }
 
 // Register user
-export async function registerUser(email: string, password: string): Promise<void> {
+export async function registerUser(email: string, password: string, authToken: string): Promise<void> {
+	if(!validAuthToken(authToken)) {
+		throw new Error('Invalid auth token');
+	}
+
   if (userExists(email)) {
     throw new Error('User already exists');
   }
-
+	
   const hashedPassword = await bcrypt.hash(password, SALT);
 	addUser({
 		email: email,

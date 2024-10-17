@@ -13,6 +13,7 @@ enum Status {
 export default function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [authToken, setAuthToken] = useState('');
   const [status, setStatus] = useState({
 		message: undefined,
 		status: Status.SUCCESS
@@ -26,7 +27,7 @@ export default function RegisterForm() {
     const res = await fetch('/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, authToken }),
     });
 		
     const data = await res.json();
@@ -51,6 +52,7 @@ export default function RegisterForm() {
 		)}
 		<h1>Enter your credentials</h1>
 		<form onSubmit={handleSubmit} className="flex flex-col gap-2">
+			<Input value={authToken} type="password" placeholder="Admin Auth Token" onChange={(e) => setAuthToken(e.target.value)} />
 			<Input value={email} type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
 			<Input value={password} type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
 			<Button type="submit">Register</Button>
