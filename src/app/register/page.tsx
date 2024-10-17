@@ -19,7 +19,7 @@ export default async function RegisterPage() {
   return (
     <div className="h-screen w-full grid place-items-center">
 			<div className="flex flex-col">
-				<Card>
+				<Card className='relative overflow-hidden'>
 					<CardHeader>
 						<CardTitle>Register</CardTitle>
 					</CardHeader>
